@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="bg">
+    <div class="container-title">
+        <h1 class="font title">당신의 선택은?</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            {% if like_list %}
+                {% for movie in like_list %}
+                    <div class="col">
+                        <input type="hidden" name="movie[]" value={{ movie.id }} />
+                        <img class="poster" src={{ movie.poster }} width="100">
+                        <div class="content">
+                            <h6 class='font sub'> {{ movie.title }} </h>
+                            <p class='font content'> {{ movie.genres }} </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="container footer">
+        <h1 class="font sub">분석은...</h1>
+        <p class="font sub"> To Be Continued... </p>
+        <button class="btn btn-danger" type = "submit">종료하기</button>
+    </div>
+    
+</div>
+{% endblock %}
+
+{% block style %}
+.bg {
+    min-height: 100vh;
+    background-size: cover;
+    background-attachment: fixed;
+    background-image: url({% static 'image/bg6.jpg' %});
+    padding-bottom: 20px;
+}
+
+.container-title {
+    padding: 110px 0 70px 0;
+    text-align: center;
+}
+
+.container.footer {
+    text-align: right;
+    padding: 10px 15px;
+}
+
+.container.footer font {
+    {% comment %} margin: 0 0 7px; {% endcomment %}
+}
+
+.col {
+    width: 150px;
+    margin: 0 10px;
+}
+
+.btn {
+    display: inline-block;
+}
+
+.poster {
+    width: 150px;
+    height: 210px;
+}
+
+.content {
+    margin-top: 10px;
+}
+
+.font {
+    color: white;
+    {% comment %} line-height: 1; {% endcomment %}
+}
+
+.font.title {
+    font-family: 'Cafe24Classic';
+    font-size: 60px;
+}
+
+.font.sub {
+    font-size: 18px;
+}
+
+.font.content {
+    font-size: 13px;
+}
+
+
+{% endblock %}

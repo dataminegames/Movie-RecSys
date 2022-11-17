@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="bg image">
+    <div class="bg color">
+        <div class="container-content">
+            <div class="container-title">
+                <h1 class="font title">영화 취향저격</h1>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="container-form">
+                    <strong class="font sub">나이</strong>
+                    <input class=" font" type="radio" name="age" class="age" value="20"> 20
+                    <input class=" font" type="radio" name="age" class="age" value="30"> 30
+                    <input class=" font" type="radio" name="age" class="age" value="40"> 40
+                    <input class=" font" type="radio" name="age" class="age" value="50"> 50 이상
+                </div>
+                <div class="container-form">
+                    <strong class="font sub">성별</strong>
+                    <input class=" font" type="radio" name="gender" value="m"> 남성
+                    <input class=" font" type="radio" name="gender" value="f"> 여성
+                </div>
+                <div class="container-form">
+                    <strong class="font sub">거주지</strong>
+                    <select name="address" id = "address">
+                        <option value="서울">서울</option>
+                        <option value="경기도">경기도</option>
+                        <option value="인천">인천</option>
+                        <option value="충청도">충청도</option>
+                        <option value="경상도">경상도</option>
+                        <option value="전라도">전라도</option>
+                        <option value="제주도">제주도</option>
+                    </select>
+                </div>
+                <div class="container-form">
+                    <strong class="font sub">MBTI</strong>
+                    <select name="mbti" id = "mbti">
+                        <option value="ISTJ" style="width:20px;height:20px;border:1px;">ISTJ</option>
+                        <option value="ISTP">ISTP</option>
+                        <option value="ISFJ">ISFJ</option>
+                        <option value="ISFP">ISFP</option>
+                        <option value="INTJ">INTJ</option>
+                        <option value="INTP">INTP</option>
+                        <option value="INFJ">INFJ</option>
+                        <option value="INFP">INFP</option>
+                        <option value="ESTJ">ESTJ</option>
+                        <option value="ESTP">ESTP</option>
+                        <option value="ESFJ">ESFJ</option>
+                        <option value="ESFP">ESFP</option>
+                        <option value="ENTJ">ENTJ</option>
+                        <option value="ENTP">ENTP</option>
+                        <option value="ENFJ">ENFJ</option>
+                        <option value="ENFP">ENFP</option>
+                        <option value="IDK">모름</option>
+                    </select>
+                </div>
+                <button class="btn btn-danger" type="submit">Next</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<!-- JS -->
+{% block script %}
+$('.btn').click(function(){
+    if ($('input[type=radio]:checked').length != 2) {
+        $(this).prop('checked', false);
+        alert("모두 선택해 주세요.");
+    }
+});
+{% endblock %}
+
+<!-- CSS -->
+{% block style %}
+.bg {
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 200vh;
+    position: absolute;
+    top: -100px;
+    background-image: url({% static 'image/bg5.jpg' %});
+}
+
+.bg.color {
+    background-image: linear-gradient(
+        to right, rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.5), rgba(0,0,0,0.5)
+    );
+}
+
+.container-content {
+    position: fixed;
+    right: 0;
+    padding: 70px 70px;
+    margin: 100px 0;
+    text-align: right;
+}
+
+.container-title {
+    padding: 140px 0;
+}
+
+.container-form {
+    padding: 7px 0 ;
+    color: white;
+}
+
+input {
+    width:20px;
+    height:20px;
+    border:1px;
+}
+
+#address, #mbti {
+    color: #000000;
+    width:70px;
+    height:50px;
+}
+
+.font {
+    color: white;
+}
+
+.font.title {
+    font-family: 'Cafe24Classic';
+    font-size: 60px;
+}
+
+.font.sub {
+    font-family: 'Cafe24Classic';
+    font-size: 25px;
+}
+
+input[type=radio] {
+    color: white;
+}
+{% endblock %}

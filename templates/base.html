@@ -1,0 +1,45 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- JS -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                font-family: 'LeferiPoint';
+                font-size: 22px;
+            }
+            {% block style %}
+            {% endblock style %}
+            @font-face {
+                font-family: 'LeferiPoint';
+                src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteObliqueA.woff') format('woff');
+                font-weight: normal;
+                font-style: normal; 
+            }
+            @font-face {
+                font-family: 'Cafe24Classic';
+                src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Cafe24ClassicType-Regular.woff2') format('woff2');
+                font-weight: normal;
+                font-style: normal;
+            }
+        </style>
+        <title>영화 추천</title>
+    </head>
+    <body>
+        {% block body %}
+        {% endblock %}
+        <script>
+            {% block script %}
+            {% endblock %}
+        </script>
+    </body>
+</html>

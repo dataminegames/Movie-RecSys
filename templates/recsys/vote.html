@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="bg image">
+    <div class="container-title">
+        <h1 class="font title">나의 영화 취향은?</h1>
+        <p class="font"> 당신의 영화 취향을 알려주세요.</p>
+        <p class="font">어떤 영화를 재미있게 보았나요?</p>
+        <p class="font">보진 않았지만 보고싶은 영화를 골라도 좋습니다.</p>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <p class="font">5개의 영화를 골라주세요.</p>
+        <div class ="container">
+            {% if choice_list %}
+                {% for movie in choice_list %}
+                    <label class="card {{forloop.count}}">
+                        <input type="checkbox" name="movie[]" value={{ movie.id }} id={{ forloop.counter }}>
+                        <div class="card-content">
+                            <img class="poster" src={{ movie.poster }}>
+                            <div class="content">
+                                <h6 class="font-title"> {{ movie.title }} </h6>
+                                <p> {{ movie.genres }} </p>
+                            </div>
+                            <div class="like" id={{ forloop.counter }}>
+                                <img src={% static 'image/btn-heart.png' %} width="70px">
+                            </div>
+                        </div>
+                    </label>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="container btn">
+            <button class="btn btn-danger" type = "submit">Next</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+<!-- JS -->
+{% block script %}
+$('input[type=checkbox]').click( function() {
+    var inpId = $(this).attr("id");
+    var imgId = '#' + inpId + '.like';
+    if (!$(this).is(":checked")) {
+        $(imgId).hide();
+    } else {
+        $(imgId).show();
+    }
+});
+$('.btn').click(function(){
+    if ($('input[type=checkbox]:checked').length != 5) {
+        $(this).prop('checked', false);
+        alert("5개를 선택해 주세요.");
+    }
+});
+{% endblock %}
+
+<!-- CSS -->
+{% block style %}
+.bg {
+    background-size: cover;
+    background-attachment: fixed;
+    background-image: url({% static 'image/bg3.jpg' %});
+    padding-bottom: 20px;
+}
+
+.container-title {
+    padding: 140px 0;
+    text-align: center;
+    color:white;
+    font-family: 'Cafe24Classic';
+    font-size: 25px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto 30px auto;
+    padding: 7px 0;
+}
+
+.container.btn {
+    justify-content: right;
+    padding: 0 35px;
+}
+
+.card {
+    position: relative;
+    margin: 10px;
+    background-color: rgba(0,0,0,0)
+}
+
+.card:active {
+    transform: scale(0.96);
+}
+
+.card input {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.card-content {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 7px;
+    border: none;
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.02);
+    z-index: 999;
+}
+
+.poster {
+    width: 200px;
+    height: 280px;
+}
+
+.like {
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    top: calc(50% - 35px);
+    left: calc(50% - 35px);
+    z-index: 998;
+}
+
+.container-content {
+    padding: 70px 70px;
+    text-align: center;
+}
+
+.content {
+    position: absolute;
+    bottom: -140px;
+    width: 100%;
+    padding: 12px;
+    color: #FFFFFF;
+    background-color: rgba(0,0,0,0.7);
+    transition: all ease 0.3s;
+}
+.card:hover .content {
+    bottom: 0;
+}
+
+.btn.btn-danger{
+    align-item: right;
+    font-family: 'Cafe24ClassicType-Regular';
+    font-size:25px;
+    width:100px
+}
+
+.font {
+    color: white;
+    text-align: center;
+}
+
+.font.title {
+    font-family: 'Cafe24Classic';
+    font-size: 60px;
+}
+
+.font-title {
+    font-size: 18px;
+}
+
+.container-title p {
+    font-size: 15px;
+    margin-bottom: 0;
+}
+
+.content p {
+    font-size: 12px;
+} 
+{% endblock %}
