@@ -38,9 +38,9 @@ def delete(table, table_name, year):
             break
     dt = datetime(year, 1, 1)
     if table_name == 'movieinfo':
-        data = table.objects.filter(open_date__gte=year).delete()
+        data = table.objects.filter(openDate__gte=year).delete()
     elif table_name == 'moviechoice':
-        data = table.objects.filter(movie__open_date__gte=year).delete()
+        data = table.objects.filter(movie__openDate__gte=year).delete()
     elif table_name == 'userprofile':
         data = table.objects.filter(vote_date__gte=dt).delete()
     elif table_name == 'userlike':
